@@ -1,0 +1,23 @@
+[
+  {
+    "offer": "MLServer-RedHat",
+    "publisher": "MicrosoftRServer",
+    "sku": "Enterprise",
+    "urn": "MicrosoftRServer:MLServer-RedHat:Enterprise:9.3.026060001",
+    "version": "9.3.026060001"
+  },
+  {
+    "offer": "MLServer-RedHat",
+    "publisher": "MicrosoftRServer",
+    "sku": "Enterprise",
+    "urn": "MicrosoftRServer:MLServer-RedHat:Enterprise:9.3.026080002",
+    "version": "9.3.026080002"
+  },
+  {
+    "offer": "redhat-jboss-eap-72",
+    "publisher": "midvision",
+    "sku": "midvision-redhat-eap-72-20191119",
+    "urn": "midvision:redhat-jboss-eap-72:midvision-redhat-eap-72-20191119:1.0.0",
+    "version": "1.0.0"
+  }
+]
