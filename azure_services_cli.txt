@@ -1,0 +1,236 @@
+---------------variables---------------
+
+export RESOURCE_GROUP=Test_Ubuntu_1
+export AZURE_REGION=westus2
+export AZURE_APP_PLAN=popupappplan-$RANDOM
+export AZURE_WEB_APP=popupwebapp-$RANDOM
+
+az group list --query "[?name == '$RESOURCE_GROUP']"
+Test_Ubuntu_1                   westus2     Succeeded
+
+---------------app service---------------
+mgonzalez@vm:/media/sf_Virtual/Azure_trainning$ az appservice plan create --name $AZURE_APP_PLAN --resource-group $RESOURCE_GROUP --location $AZURE_REGION --sku FREE
+{- Finished ..
+  "freeOfferExpirationTime": null,
+  "geoRegion": "West US 2",
+  "hostingEnvironmentProfile": null,
+  "hyperV": false,
+  "id": "/subscriptions/51285dee-c1cd-4f73-bb11-d0c9323690cf/resourceGroups/Test_Ubuntu_1/providers/Microsoft.Web/serverfarms/popupappplan-3381",
+  "isSpot": false,
+  "isXenon": false,
+  "kind": "app",
+  "location": "West US 2",
+  "maximumElasticWorkerCount": 1,
+  "maximumNumberOfWorkers": 1,
+  "name": "popupappplan-3381",
+  "numberOfSites": 0,
+  "perSiteScaling": false,
+  "provisioningState": "Succeeded",
+  "reserved": false,
+  "resourceGroup": "Test_Ubuntu_1",
+  "sku": {
+    "capabilities": null,
+    "capacity": 0,
+    "family": "F",
+    "locations": null,
+    "name": "F1",
+    "size": "F1",
+    "skuCapacity": null,
+    "tier": "Free"
+  },
+  "spotExpirationTime": null,
+  "status": "Ready",
+  "subscription": "51285dee-c1cd-4f73-bb11-d0c9323690cf",
+  "tags": null,
+  "targetWorkerCount": 0,
+  "targetWorkerSizeId": 0,
+  "type": "Microsoft.Web/serverfarms",
+  "workerTierName": null
+}
+mgonzalez@vm:/media/sf_Virtual/Azure_trainning$ az appservice plan list --output table
+HyperV    IsSpot    IsXenon    Kind    Location    MaximumElasticWorkerCount    MaximumNumberOfWorkers    Name               NumberOfSites    PerSiteScaling    Reserved    ResourceGroup    Status    TargetWorkerCount    TargetWorkerSizeId
+--------  --------  ---------  ------  ----------  ---------------------------  ------------------------  -----------------  ---------------  ----------------  ----------  ---------------  --------  -------------------  --------------------
+False     False     False      app     West US 2   1                            1                         popupappplan-3381  0                False             False       Test_Ubuntu_1    Ready     0                    0
+
+---------------webapp---------------
+
+mgonzalez@vm:/media/sf_Virtual/Azure_trainning$ az webapp create --name $AZURE_WEB_APP --resource-group $RESOURCE_GROUP --plan $AZURE_APP_PLAN
+{- Finished ..
+  "availabilityState": "Normal",
+  "clientAffinityEnabled": true,
+  "clientCertEnabled": false,
+  "clientCertExclusionPaths": null,
+  "cloningInfo": null,
+  "containerSize": 0,
+  "dailyMemoryTimeQuota": 0,
+  "defaultHostName": "popupwebapp-14246.azurewebsites.net",
+  "enabled": true,
+  "enabledHostNames": [
+    "popupwebapp-14246.azurewebsites.net",
+    "popupwebapp-14246.scm.azurewebsites.net"
+  ],
+  "ftpPublishingUrl": "ftp://waws-prod-mwh-021.ftp.azurewebsites.windows.net/site/wwwroot",
+  "hostNameSslStates": [
+    {
+      "hostType": "Standard",
+      "ipBasedSslResult": null,
+      "ipBasedSslState": "NotConfigured",
+      "name": "popupwebapp-14246.azurewebsites.net",
+      "sslState": "Disabled",
+      "thumbprint": null,
+      "toUpdate": null,
+      "toUpdateIpBasedSsl": null,
+      "virtualIp": null
+    },
+    {
+      "hostType": "Repository",
+      "ipBasedSslResult": null,
+      "ipBasedSslState": "NotConfigured",
+      "name": "popupwebapp-14246.scm.azurewebsites.net",
+      "sslState": "Disabled",
+      "thumbprint": null,
+      "toUpdate": null,
+      "toUpdateIpBasedSsl": null,
+      "virtualIp": null
+    }
+  ],
+  "hostNames": [
+    "popupwebapp-14246.azurewebsites.net"
+  ],
+  "hostNamesDisabled": false,
+  "hostingEnvironmentProfile": null,
+  "httpsOnly": false,
+  "hyperV": false,
+  "id": "/subscriptions/51285dee-c1cd-4f73-bb11-d0c9323690cf/resourceGroups/Test_Ubuntu_1/providers/Microsoft.Web/sites/popupwebapp-14246",
+  "identity": null,
+  "inProgressOperationId": null,
+  "isDefaultContainer": null,
+  "isXenon": false,
+  "kind": "app",
+  "lastModifiedTimeUtc": "2020-05-17T10:16:46.796666",
+  "location": "West US 2",
+  "maxNumberOfWorkers": null,
+  "name": "popupwebapp-14246",
+  "outboundIpAddresses": "13.66.241.134,13.77.137.190,52.175.194.87,13.77.164.91,13.77.153.221",
+  "possibleOutboundIpAddresses": "13.66.241.134,13.77.137.190,52.175.194.87,13.77.164.91,13.77.153.221,13.66.184.79,13.77.165.106,13.66.231.45",
+  "redundancyMode": "None",
+  "repositorySiteName": "popupwebapp-14246",
+  "reserved": false,
+  "resourceGroup": "Test_Ubuntu_1",
+  "scmSiteAlsoStopped": false,
+  "serverFarmId": "/subscriptions/51285dee-c1cd-4f73-bb11-d0c9323690cf/resourceGroups/Test_Ubuntu_1/providers/Microsoft.Web/serverfarms/popupappplan-3381",
+  "siteConfig": {
+    "acrUseManagedIdentityCreds": false,
+    "acrUserManagedIdentityID": null,
+    "alwaysOn": null,
+    "apiDefinition": null,
+    "apiManagementConfig": null,
+    "appCommandLine": null,
+    "appSettings": null,
+    "autoHealEnabled": null,
+    "autoHealRules": null,
+    "autoSwapSlotName": null,
+    "azureMonitorLogCategories": null,
+    "connectionStrings": null,
+    "cors": null,
+    "customAppPoolIdentityAdminState": null,
+    "customAppPoolIdentityTenantState": null,
+    "defaultDocuments": null,
+    "detailedErrorLoggingEnabled": null,
+    "documentRoot": null,
+    "experiments": null,
+    "fileChangeAuditEnabled": null,
+    "ftpsState": null,
+    "functionsRuntimeScaleMonitoringEnabled": null,
+    "handlerMappings": null,
+    "healthCheckPath": null,
+    "http20Enabled": null,
+    "httpLoggingEnabled": null,
+    "ipSecurityRestrictions": [
+      {
+        "action": "Allow",
+        "description": "Allow all access",
+        "ipAddress": "Any",
+        "name": "Allow all",
+        "priority": 1,
+        "subnetMask": null,
+        "subnetTrafficTag": null,
+        "tag": null,
+        "vnetSubnetResourceId": null,
+        "vnetTrafficTag": null
+      }
+    ],
+    "javaContainer": null,
+    "javaContainerVersion": null,
+    "javaVersion": null,
+    "limits": null,
+    "linuxFxVersion": null,
+    "loadBalancing": null,
+    "localMySqlEnabled": null,
+    "logsDirectorySizeLimit": null,
+    "machineKey": null,
+    "managedPipelineMode": null,
+    "managedServiceIdentityId": null,
+    "metadata": null,
+    "minTlsVersion": null,
+    "netFrameworkVersion": null,
+    "nodeVersion": null,
+    "numberOfWorkers": null,
+    "phpVersion": null,
+    "powerShellVersion": null,
+    "preWarmedInstanceCount": null,
+    "publishingPassword": null,
+    "publishingUsername": null,
+    "push": null,
+    "pythonVersion": null,
+    "remoteDebuggingEnabled": null,
+    "remoteDebuggingVersion": null,
+    "requestTracingEnabled": null,
+    "requestTracingExpirationTime": null,
+    "routingRules": null,
+    "runtimeADUser": null,
+    "runtimeADUserPassword": null,
+    "scmIpSecurityRestrictions": [
+      {
+        "action": "Allow",
+        "description": "Allow all access",
+        "ipAddress": "Any",
+        "name": "Allow all",
+        "priority": 1,
+        "subnetMask": null,
+        "subnetTrafficTag": null,
+        "tag": null,
+        "vnetSubnetResourceId": null,
+        "vnetTrafficTag": null
+      }
+    ],
+    "scmIpSecurityRestrictionsUseMain": null,
+    "scmType": null,
+    "tracingOptions": null,
+    "use32BitWorkerProcess": null,
+    "virtualApplications": null,
+    "vnetName": null,
+    "webSocketsEnabled": null,
+    "websiteTimeZone": null,
+    "winAuthAdminState": null,
+    "winAuthTenantState": null,
+    "windowsFxVersion": null,
+    "xManagedServiceIdentityId": null
+  },
+  "slotSwapStatus": null,
+  "state": "Running",
+  "suspendedTill": null,
+  "tags": null,
+  "targetSwapSlot": null,
+  "trafficManagerHostNames": null,
+  "type": "Microsoft.Web/sites",
+  "usageState": "Normal"
+}
+mgonzalez@vm:/media/sf_Virtual/Azure_trainning$ az webapp list --output table
+Name               Location    State    ResourceGroup    DefaultHostName                      AppServicePlan
+-----------------  ----------  -------  ---------------  -----------------------------------  -----------------
+popupwebapp-14246  West US 2   Running  Test_Ubuntu_1    popupwebapp-14246.azurewebsites.net  popupappplan-3381
+
+mgonzalez@vm:/media/sf_Virtual/Azure_trainning$ curl $AZURE_WEB_APP.azurewebsites.net
+﻿<!DOCTYPE html><html lang="en"><head> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv=X-UA-Compatible content="IE=edge"> <title>Microsoft Azure App Service - Welcome</title> <link rel="shortcut icon" href="https://appservice.azureedge.net/images/app-service/v3/favicon.ico" type="image/x-icon"/> <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/4.1.1/css/bootstrap.min.css" crossorigin="anonymous"> <link rel="stylesheet" type="text/css" href="https://appservice.azureedge.net/css/app-service/v3/main.css"> <script src="https://appservice.azureedge.net/scripts/app-service/v3/loc.min.js" crossorigin="anonymous"></script> <script type="text/javascript">window.onload=function (){try{var a=window.location.hostname; if (a.includes(".azurewebsites.net")){a=a.replace(".azurewebsites.net", "")}var b=document.getElementById("depCenterLink1"); b.setAttribute("href", b.getAttribute("href") + "&sitename=" + a); loc();}catch (d){}}</script></head><body> <nav class="navbar navbar-light bg-light"> <div class="navbar-brand "> <div class="container pl-4 ml-5"> <img src="https://appservice.azureedge.net/images/app-service/v3/microsoft_azure_logo.svg" width="270" height="108" alt=""> </div></div></nav> <div class="container-fluid container-height mr-2"> <div class="pt-10 pb-10 mt-10 mb-10 d-xxs-none d-xs-none d-sm-none d-md-none d-lg-block d-xl-block" style="height:20px; width:100%; clear:both;"></div><div class="row"> <div class="row col-xs-12 col-sm-12 d-block d-lg-none d-xl-none d-md-block d-sm-block d-xs-block"> <div class="text-center"> <img src="https://appservice.azureedge.net/images/app-service/v3/generic.svg"> </div></div><div class=" extra-pl-small-scr offset-xl-1 offset-lg-1 offset-md-2 offset-sm-2 offset-xs-4 col-xl-5 col-lg-5 col-md-10 col-sm-11 col-xs-11 div-vertical-center"> <div class="container-fluid"> <div class="row"> <h2 id="heyDevelopers">Hey, App Service developers!</h2> </div><br><div class="row"> <h4 id="upRunning">Your app service is up and running.</h4> </div><div class="row"> <h4 id="nextSteps">Time to take the next step and deploy your code.</h4> </div><div class="row info-mg-top"> <p class=" pl-0 col-md-6 col-sm-12 info-mg-top"><span id="codeReady">Have your code ready?</span><br><span id="useDCenter"> Use deployment center to get code published from your client or setup continuous deployment.</span><br><a id="depCenterLink1" href="https://go.microsoft.com/fwlink/?linkid=2057852"><button class="btn btn-primary btn-mg-top" type="submit" id="deplCenter">Deployment Center</button></a></p><p class="pl-0 offset-md-1 col-md-5 col-sm-12 info-mg-top"> <span id="codeNotReady">Don't have your code yet?</span><br><span id="followQS">Follow our quickstart guide and you'll have a full app ready in 5 minutes or less.</span> <br><a href="https://go.microsoft.com/fwlink/?linkid=2084231"><button class="btn btn-primary btn-mg-top" type="submit" id="quickStart">Quickstart</button></a></p></div></div></div><div class="col-xl-5 col-lg-5 col-md-12 d-none d-lg-block"> <div class="text-center"><img src="https://appservice.azureedge.net/images/app-service/v3/generic.svg"> </div></div><div class="col-xl-1 col-lg-1 col-md-1"></div></div></div><script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.2.1.min.js" crossorigin="anonymous"></script> <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/4.1.1/bootstrap.min.js" crossorigin="anonymous"></script></body></html>
+
