@@ -2,7 +2,7 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_network_interface" "example" {
+resource "azurerm_network_interface" "nic" {
   name = "Test_Ubuntu_1-nic"
   location =  "westus2"
   resource_group_name = "Test_Ubuntu_1"
@@ -13,8 +13,8 @@ resource "azurerm_network_interface" "example" {
   }
 }
 
-resource "azurerm_linux_virtual_machine" "example" {
-  name = "example-machine"
+resource "azurerm_linux_virtual_machine" "vm" {
+  name = "vm-"
   resource_group_name = "Test_Ubuntu_1"
   location = "westus2"
   size = "Standard_B1s"
@@ -22,7 +22,7 @@ resource "azurerm_linux_virtual_machine" "example" {
   admin_username = "adminuser"
   admin_password 	= "Nueva%123456"
   network_interface_ids = [azurerm_network_interface.example.id, ]
- 
+  count = 2
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
