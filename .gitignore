@@ -1,3 +1,3 @@
-basic-create/.terraform/
+basic-create/.terraform/*
 basic-create/*.tfstate*
 *.txt
