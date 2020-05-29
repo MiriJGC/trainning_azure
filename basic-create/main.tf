@@ -3,7 +3,8 @@ provider "azurerm" {
 }
 
 resource "azurerm_network_interface" "nic" {
-  name = "Test_Ubuntu_1-nic"
+  count = 2
+  name = "nic-${count.index}"
   location =  "westus2"
   resource_group_name = "Test_Ubuntu_1"
   ip_configuration {
@@ -14,15 +15,16 @@ resource "azurerm_network_interface" "nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {
-  name = "vm-"
+  count = 2
+  name = "vm-${count.index}"
   resource_group_name = "Test_Ubuntu_1"
   location = "westus2"
   size = "Standard_B1s"
   disable_password_authentication = "false"
   admin_username = "adminuser"
   admin_password 	= "Nueva%123456"
-  network_interface_ids = [azurerm_network_interface.example.id, ]
-  count = 2
+  network_interface_ids =  [azurerm_network_interface.nic[count.index].id, ]
+     
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
@@ -34,4 +36,11 @@ resource "azurerm_linux_virtual_machine" "vm" {
     sku       = "16.04-LTS"
     version   = "latest"
   }
+}
+
+resource "azurerm_public_ip" "ip" {
+  location =  "westus2"
+  name = "public_ip-0"
+  resource_group_name = "Test_Ubuntu_1" 
+  allocation_method = "Dynamic"
 }
