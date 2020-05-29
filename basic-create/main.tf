@@ -40,7 +40,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
 resource "azurerm_public_ip" "ip" {
   location =  "westus2"
-  name = "public_ip-0"
+  name = "public_ip-1"
   resource_group_name = "Test_Ubuntu_1" 
   allocation_method = "Dynamic"
 }
